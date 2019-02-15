@@ -1,0 +1,148 @@
+            html{
+                    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+            }
+            
+            body {
+                background-color: Black;
+            }
+            viewport {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                -webkit-transform: scale(1.7);
+                -ms-transform: scale(1.8);
+                -moz-transform: scale(1.8);
+            }
+            canvas {
+                border-radius: 15px;
+            }
+            #clear {
+                clear: both;
+            }
+            .ui-tooltip {
+                z-index: 999;
+            }
+            #ventControls {
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                position: absolute;
+                z-index: 998;
+                height: 600px;
+                -moz-box-shadow: 0 0 10px #000000;
+                -webkit-box-shadow: 0 0 10px #000000;
+                box-shadow: 0 0 10px #000000;
+                overflow: hidden;
+            }
+            #tabs {
+                min-width: 960px;
+                min-height: 600px;
+                display: none;
+            }
+            label {
+                display: inline-block;
+                width: 150px;
+                text-align: left;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+            }
+            input {
+                display: inline-block;
+            }
+            input[type=range] {
+                -webkit-appearance: none;
+                /* Hides the slider so that custom slider can be made */
+                
+                width: 100%;
+                /* Specific width is required for Firefox. */
+            }
+            input[type=range]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+            }
+            input[type=range]:focus {
+                outline: none;
+                /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+            }
+            input[type=range] {
+                width: 50%;
+            }
+            input[type=range]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                border: 1px solid #000000;
+                height: 36px;
+                width: 30px;
+                border-radius: 3px;
+                background: #ffffff;
+                cursor: pointer;
+                margin-top: -14px;
+                /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+                
+                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                /* Add cool effects to your sliders! */
+                z-index:10000;
+            }
+            input[type=range]::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 8.4px;
+                cursor: pointer;
+                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                background: #3071a9;
+                border-radius: 1.3px;
+                border: 0.2px solid #010101;
+            }
+            input[type=range]:focus::-webkit-slider-runnable-track {
+                background: #367ebd;
+            }
+            .optionsDiv {
+                .margin: 5px;
+                .padding: 5px;
+            }
+            .form-field-no-caption {
+                margin-left: 0.5em;
+                padding-left: 0.5em;
+            }
+            .units {
+                font-size: small;
+            }
+            output {
+                font-size: larger;
+            }
+            label {
+                font-size: larger;
+            }
+            
+            fieldset{
+                margin:10px;
+                                border-radius:5px;
+
+            }
+            
+            fieldset.submit button{
+                    display: block;
+    width: 100px;
+    margin: 10px auto;
+    
+            }
+            
+            fieldset.submit{
+                border:none;
+                position: absolute;
+                bottom:0;
+                left:400px;
+            }
+            
+            .controlButtonsFieldset {
+                
+            }

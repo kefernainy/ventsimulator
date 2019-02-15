@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+       
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="ventilator.css">
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="ventGraphicsObj.js" defer></script>
+        <script type="text/javascript" src="ventilator.js" defer></script>
+        <script type="text/javascript" src="ventControls.js" defer>
+        </script>
+        
+        <title>Mechanical ventilator</title>
+    </head>
+
+    <body>
+        <div id="volumeVent"></div>
+        <div id="clear"></div>
+        <div id="ventControls">
+            <div id="tabs">
+                <ul>
+                    <li>
+                        <a href="#tabs-1">Controls</a>
+                    </li>
+                    <li>
+                        <a href="#tabs-2">Display</a></a>
+                    </li>
+                    <li>
+                        <a href="#tabs-3">Patient</a>
+                    </li>
+                </ul>
+                <div id="tabs-1">
+                     <div id="ventModeOptions" class = "optionsDiv">
+                    <fieldset>
+                     <legend>Strategy</legend>
+                     <select id="ventModeSelect" class = "optionsDiv" >
+                        <option value="CMV" title = "CMV">Continuous Mandatory Ventilation</option>
+                        <option value="IMV">Intermittent Mandatory Ventilation</option>
+                        <option value="Spontaneous">Continuous Spontaneous</option>
+                    </select>
+                    </fieldset>
+                    </div>
+                    <div id="AllACOptions" class = "optionsDiv">
+                        <fieldset>
+                            <legend >Common Options</legend>
+                            <label for="breathRateSlider">Breath Rate:</label>
+                            <input type="range" min="5" max="30" id="breathRateSlider"
+                            name="breathRateSlider" value="12" oninput="breathRateSet.value = breathRateSlider.value;">
+                            <output name="breathRateSet" id="breathRateSet" for="breathRateSlider"
+                            onload="breathRateSet.value = breathRateSlider.value"></output><span class="units"> bpm</span>
+                            <br>
+                            <label for="ACBreathTargetSelect">Target:</label>
+                            <select id="ACBreathTargetSelect">
+                                <option value="VC">Volume</option>
+                                <option value="PC">Pressure</option>
+                                <option value="PRVC">PRVC</option>
+                            </select>
+                            <br>
+                            <label  for="peepSlider">PEEP:</label>
+                            <input type="range" min="0" max="50" id="peepSlider" name="peepSlider"
+                            value="5" oninput="peepSet.value = peepSlider.value;">
+                            <output name="peepSet" id="peepSet" for="peepSlider"></output><span class="units"> cm H<sub>2</sub>O</span>
+                        </fieldset>
+                    </div>
+                    <div id="pressureSupportOptions" class = "optionsDiv">
+                        <fieldset>
+                            <legend>Support Breath Options</legend>
+                            <label for="SpontBreathTargetSelect">BreathTarget:</label>
+                            <select id="SpontBreathTargetSelect">
+                                <option value="PS">Pressure Support</option>
+                            </select>
+                            <br>
+                            <label for="spontDrivingPressureSlider">Support Pressure:</label>
+                            <input type="range" min="0" max="50" id="spontDrivingPressureSlider"
+                            name="spontDrivingPressureSlider" oninput="spontDrivingPressureSet.value = spontDrivingPressureSlider.value">
+                            <output name="spontDrivingPressureSet" id="spontDrivingPressureSet" for="spontDrivingPressureSet"></output><span class="units"> cm H<sub>2</sub>O</span>
+                        </fieldset>
+                    </div>
+                    <div id="volumeTargetOptions" class = "optionsDiv">
+                        <fieldset>
+                            <legend>Volume Target Options</legend>
+                            <label for="volumeSlider">Volume:</label>
+                            <input type="range" min="100" max="1000" id="volumeSlider"
+                            name="volumeSlider" oninput="volumeSet.value = volumeSlider.value;">
+                            <output name="volumeSet" id="volumeSet" for="volumeSlider"></output><span class="units"> mL</span>
+                            </br>
+                            <label for="flowRateSlider">Flow Rate:</label>
+                            <input type="range" min="40" max="100" id="flowRateSlider"
+                            name="flowRateSlider" value="60" oninput="flowRateSet.value = flowRateSlider.value">
+                            <output name="flowRateSet" id="flowRateSet" for="flowRateSlider"></output><span class="units"> Liters/min</span>
+                            </br>
+                            <label for="flowWaveFormSelect">Waveforms:</label>
+                            <select id="flowWaveFormSelect">
+                                <option value="Square">Square</option>
+                                <option value="DescendingRamp">Descending</option>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div id="pressureTargetOptions" class = "optionsDiv">
+                        <fieldset>
+                            <legend>Pressure Target Options</legend>
+                            <label for="drivingPressureSlider">Driving Pressure:</label>
+                            <input type="range" min="0" max="50" id="drivingPressureSlider"
+                            name="drivingPressureSlider" value="30" oninput="drivingPressureSet.value = drivingPressureSlider.value">
+                            <output name="drivingPressureSet" id="drivingPressureSet" for="drivingPressureSlider"></output><span class="units"> cm H<sub>2</sub>O</span>
+                            </br>
+                            <label for="inspiratoryTimeSlider">Ti</label>
+                            <input type="range" min="0" max="5" id="inspiratoryTimeSlider"
+                            name="inspiratoryTimeSlider" value="1" oninput="inspiratoryTimeSet.value = inspiratoryTimeSlider.value">
+                            <output name="inspiratoryTimeSet" id="inspiratoryTimeSet" for="inspiratoryTimeSlider"></output><span class="units"> sec</span>
+                        </fieldset>
+                    </div>
+                    <fieldset class="controlButtonsFieldset">
+                        <button id="stopButton" >Pause</button>
+                        <button id="plateauButton">Plateau Pressure</button>
+                        <button id="expiratoryPauseButton">Expiratory Pause Pressure</button>
+                        <button id="startPatientBreath">Start Patient Breath</button>
+                    </fieldset>
+                     <fieldset class = "submit"><button id="submitSettingsButton">Submit Changes</button></fieldset>
+                </div>
+                <div id="tabs-2">
+                       <fieldset>
+                           <legend>Graphics Options</legend>
+                    <div id="ventDisplayControls">
+                        <label for="volumeRadioButton">Volume-time</label>
+                        <input type="radio" name="ventDisplayRadio" id="volumeRadioButton"
+                        value="Volume" checked></input>
+                        <br>
+                        <label for="pressureRadioButton">Pressure-time</label>
+                        <input type="radio" name="ventDisplayRadio" id="pressureRadioButton"
+                        value="Pressure"></input>
+                        <br>
+                        <label for="flowRadioButton">Flow-time</label>
+                        <input type="radio" name="ventDisplayRadio" id="flowRadioButton"
+                        value="Flow"></input>
+                        <br>
+                        <label for="secondsPeScreenSlider">Time scale:</label>
+                        <input type="range" min="1" max="30" id="secondsPerScreenSlider"
+                        name="secondsPerScreenSlider" value="20" oninput="secondsPerScreenSet.value = secondsPerScreenSlider.value">
+                        <output name="secondsPerScreenSet" id="secondsPerScreenSet" for="secondsPerScreenSlider"></output><span class="units"> sec</span>
+                    </div>
+                       </fieldset>
+                </div>
+                
+                <div id="tabs-3">
+                    <fieldset>
+                        <legend>Breath Settings</legend>
+                    <label for="patientBreathRateSlider">Rate:</label>
+                    <input type="range" min="0" max="30" id="patientBreathRateSlider" oninput="patientBreathRateSet.value = patientBreathRateSlider.value">
+                    <output name="patientBreathRateSet" id="patientBreathRateSet" for="patientBreathRateSlider"></output><span class="units"> bpm</span>
+                    <br>
+                    <label for="patientBreathDurationSlider">Duration:</label>
+                    <input type="range" min="0" max="5" id="patientBreathDurationSlider"
+                     oninput="patientBreathDurationSet.value = patientBreathDurationSlider.value">
+                    <output name="patientBreathDurationSet" id="patientBreathDurationSet"
+                    for="patientBreathDurationSlider"></output><span class="units"> sec</span>
+                    <br>
+                    <label for="patientBreathDepthSlider">Depth:</label>
+                    <input type="range" min="0" max="30" id="patientBreathDepthSlider"
+                    name="patientBreathDepthSlider" oninput="patientBreathDepthSet.value = patientBreathDepthSlider.value">
+                    <output name="patientBreathDepthSet" id="patientBreathDepthSet" for="patientBreathDepthSlider"></output>
+                    </fieldset>
+                    <fieldset>
+                    <label for="ETTResistanceSlider">ETT Resistance:</label>
+                    <input type="range" min="0.01" step = "0.01" max="0.5" id="ETTResistanceSlider"
+                    name="ETTResistanceSlider" oninput="ETTResistanceSet.value = ETTResistanceSlider.value">
+                    <output name="ETTResistanceSet" id="ETTResistanceSet" for="ETTResistanceSlider"></output>
+                    <br>
+                    <label for="lungComplianceSlider">Lung Compliance:</label>
+                    <input type="range" min="0.01" max="0.1" step = "0.01" id="lungComplianceSlider"
+                    name="lungComplianceSlider" oninput="lungComplianceSet.value = lungComplianceSlider.value">
+                    <output name="lungComplianceSet" id="lungComplianceSet" for="lungComplianceSlider"></output>
+                    </fieldset>
+                    <fieldset class="submit"> <button id="patientSubmitButton">Submit Changes</button></fieldset>
+                </div>
+                
+
+            </div>
+        </div>
+    </body>
+
+</html>

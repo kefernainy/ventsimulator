@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- Google HTML5 slide template Authors: Luke Mahé (code) Marcin Wichary
+(code and design) Dominic Mazzoni (browser compatibility) Charles Chen
+(ChromeVox support) URL: http://code.google.com/p/html5slides/ -->
+<html>
+
+    <head>
+        <title>Presentation</title>
+        <meta charset='utf-8'>
+        <script src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+    </head>
+    <style>
+        /* Your individual styles here, or just use inline styles if that’s
+       what you want. */
+        viewport {
+            -webkit-box-align:center;
+            -webkit-box-pack:center;
+            display:-webkit-box;
+            margin:0 auto;
+        }
+        canvas {
+            border-radius:15px;
+        }
+    </style>
+
+    <body style='display: none'>
+        <section class='slides layout-regular'>
+            <article>
+                <div>
+                    <canvas id="volumeVent"></canvas>
+                </div>
+            </article>
+            <article>
+                <h1>Ventilator Chapter</h1>
+                <h2>Chapter 1</h2>
+            </article>
+            <article>
+                <h3>Basic Characteristics of a Mechanical Breath</h3>
+                <ul>
+                    <li>Timing</li>
+                    <li>Target</li>
+                    <li>Trigger</li>
+                </ul>
+            </article>
+        </section>
+    </body>
+    <script type="text/javascript" src="VentGraphicsObj.js"></script>
+    <script type="text/javascript" src="ventilator.js"></script>
+    <script>
+        var myVent = new VentGraphics("volumeVent", 500, 400); //is global variable now
+        myVent.setDisplay("Flow");
+    </script>
+
+</html>
